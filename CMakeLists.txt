@@ -14,8 +14,6 @@ set(HOME ${CMAKE_BINARY_DIR})
 # 设置编译程序的输出目录
 set(EXECUTABLE_OUTPUT_PATH ${HOME}/bin)
 
-# 动态库文件也可以指定输出的位置, 如果目录不存在的话, CMAKE 会帮我们自动创建
-set(LIBRARY_OUTPUT_PATH ${HOME}/lib)
 
 #查找头文件
 include_directories(${PROJECT_SOURCE_DIR}/include)
@@ -26,5 +24,13 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 #或者使用file
 file(GLOB FILE ${CMAKE_CURRENT_SOURCE_DIR}/source/*.cpp)
 
+# 动态库文件也可以指定输出的位置, 如果目录不存在的话, CMAKE 会帮我们自动创建
+set(LIBRARY_OUTPUT_PATH ${HOME}/lib)
+#也可以使用 配置库文件的目录
+#set(EXECUTABLE_OUTPUT_PATH ${HOME}/lib)
 # 编译的执行文件
+
+#制作动态链接库, 静态库 STATIC 动态库SHARED
+add_library(hello SHARED ${PROJECT_SOURCE_DIR}/include/Hello.h ${PROJECT_SOURCE_DIR}/source/Hello.cpp)
+
 add_executable(app ${FILE} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
